@@ -39,6 +39,6 @@ if __name__ == "__main__":
     PROJ_ID = "teste-cientista-dados-jr-rj"
     REF_DATE = "2023-04-01"
     load_data_chamados_with_geolocation(project_id=PROJ_ID,
-                                                    ref_date=REF_DATE,
-                                                    dir_to_save="../../datasets/raw")
+                                        ref_date=REF_DATE,
+                                        dir_to_save="../../datasets/raw")
     
