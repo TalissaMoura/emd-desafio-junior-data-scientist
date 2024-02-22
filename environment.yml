@@ -94,4 +94,3 @@ dependencies:
   - zstd=1.5.5
   - pip:
       - -r requirements.txt
-prefix: /home/talissa/miniconda3/envs/ds-data-analysis-prefrj
