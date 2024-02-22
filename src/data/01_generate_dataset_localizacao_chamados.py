@@ -3,7 +3,7 @@ import basedosdados as bd
 from datetime import datetime
 from pathlib import Path
 
-def load_data_chamado_1746_with_geolocation(project_id: str,dir_to_save: str = None,ref_date: str="2024-02-01") -> pd.DataFrame:
+def load_data_chamados_with_geolocation(project_id: str,dir_to_save: str = None,ref_date: str="2024-02-01") -> pd.DataFrame:
     path_to_save = Path(dir_to_save)
     query = f"""
       SELECT t1.*,
@@ -38,7 +38,7 @@ def load_data_chamado_1746_with_geolocation(project_id: str,dir_to_save: str = N
 if __name__ == "__main__":
     PROJ_ID = "teste-cientista-dados-jr-rj"
     REF_DATE = "2023-04-01"
-    load_data_chamado_1746_with_geolocation(project_id=PROJ_ID,
+    load_data_chamados_with_geolocation(project_id=PROJ_ID,
                                                     ref_date=REF_DATE,
                                                     dir_to_save="../../datasets/raw")
     
