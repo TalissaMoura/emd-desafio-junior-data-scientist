@@ -8,6 +8,16 @@ import pandas as pd
 def load_data_chamados_with_geolocation(
     project_id: str, dir_to_save: str = None, ref_date: str = "2024-02-01"
 ) -> pd.DataFrame:
+    """
+    Load the data from chamados_1746 table at a ref_date with additional geolocation information from bairros table.
+    Args:
+        project_id (str): name of the project on your account in GCP.
+        dir_to_save (str, optional): Path of the directory to save the dataset. If dosen't exist, create one. Defaults to None.
+        ref_date (str, optional): Reference date to filter the data from chamados_1746 table. Defaults to "2024-02-01".
+
+    Returns:
+        pd.DataFrame: A pandas dataframe with all the data in the ref_date. 
+    """    
     path_to_save = Path(dir_to_save)
     query = f"""
       SELECT t1.*,

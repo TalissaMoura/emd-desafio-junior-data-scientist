@@ -12,6 +12,19 @@ def load_data_chamados_for_subtype(
     first_ref_date: str = "2022-01-01",
     sec_ref_date: str = "2022-02-01",
 ) -> pd.DataFrame:
+    """
+    Load the data from chamados_1746 from a specific id_subtype from a time range from first_ref_date and sec_ref_date.
+
+    Args:
+        project_id (str): name of the project on your account in GCP.
+        id_subtype (str): it's the id_subtipo of the specific occurrence. 
+        dir_to_save (str, optional):  Path of the directory to save the dataset. If dosen't exist, create one. Defaults to None.
+        first_ref_date (str, optional): Initial date of reference. Defaults to "2022-01-01".
+        sec_ref_date (str, optional): End data of reference. Defaults to "2022-02-01".
+
+    Returns:
+        pd.DataFrame: A pandas dataframe with all data from specific subtype in a time range from first_ref_date and sec_ref_date. 
+    """    
     path_to_save = Path(dir_to_save)
     query = f"""
     SELECT t1.*
