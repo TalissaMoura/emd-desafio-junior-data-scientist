@@ -17,7 +17,10 @@ def load_daily_data_chamados(
     Returns:
         pd.DataFrame: A pandas dataframe with all the data in the ref_date.
     """
-    path_to_save = Path(dir_to_save)
+    if dir_to_save:
+        path_to_save = Path(dir_to_save)
+    else:
+        path_to_save = dir_to_save
     query = f"""
     SELECT t1.id_chamado,
        t1.data_inicio,

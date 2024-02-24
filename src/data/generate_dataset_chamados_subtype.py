@@ -24,7 +24,10 @@ def load_data_chamados_for_subtype(
     Returns:
         pd.DataFrame: A pandas dataframe with all data from specific subtype in a time range from first_ref_date and sec_ref_date.
     """
-    path_to_save = Path(dir_to_save)
+    if dir_to_save:
+        path_to_save = Path(dir_to_save)
+    else:
+        path_to_save = dir_to_save
     query = f"""
     SELECT t1.*
     FROM `datario.administracao_servicos_publicos.chamado_1746` t1
