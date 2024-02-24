@@ -15,8 +15,8 @@ def load_daily_data_chamados(
         ref_date (str, optional): Reference date to filter the data from chamados_1746 table. Defaults to "2024-02-01".
 
     Returns:
-        pd.DataFrame: A pandas dataframe with all the data in the ref_date. 
-    """    
+        pd.DataFrame: A pandas dataframe with all the data in the ref_date.
+    """
     path_to_save = Path(dir_to_save)
     query = f"""
     SELECT t1.id_chamado,

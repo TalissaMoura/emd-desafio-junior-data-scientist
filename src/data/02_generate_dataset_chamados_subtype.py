@@ -1,4 +1,3 @@
-from datetime import datetime
 from pathlib import Path
 
 import basedosdados as bd
@@ -17,14 +16,14 @@ def load_data_chamados_for_subtype(
 
     Args:
         project_id (str): name of the project on your account in GCP.
-        id_subtype (str): it's the id_subtipo of the specific occurrence. 
+        id_subtype (str): it's the id_subtipo of the specific occurrence.
         dir_to_save (str, optional):  Path of the directory to save the dataset. If dosen't exist, create one. Defaults to None.
         first_ref_date (str, optional): Initial date of reference. Defaults to "2022-01-01".
         sec_ref_date (str, optional): End data of reference. Defaults to "2022-02-01".
 
     Returns:
-        pd.DataFrame: A pandas dataframe with all data from specific subtype in a time range from first_ref_date and sec_ref_date. 
-    """    
+        pd.DataFrame: A pandas dataframe with all data from specific subtype in a time range from first_ref_date and sec_ref_date.
+    """
     path_to_save = Path(dir_to_save)
     query = f"""
     SELECT t1.*
