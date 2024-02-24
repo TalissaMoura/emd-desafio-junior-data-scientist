@@ -1,11 +1,10 @@
-from datetime import datetime
 from pathlib import Path
 
 import basedosdados as bd
 import pandas as pd
 
 
-def load_data_chamados_with_geolocation(
+def load_daily_data_chamados(
     project_id: str, dir_to_save: str = None, ref_date: str = "2024-02-01"
 ) -> pd.DataFrame:
     """
@@ -20,16 +19,28 @@ def load_data_chamados_with_geolocation(
     """    
     path_to_save = Path(dir_to_save)
     query = f"""
-      SELECT t1.*,
+    SELECT t1.id_chamado,
+       t1.data_inicio,
+       t1.id_bairro,
        t2.nome as nome_bairro,
-       t2.subprefeitura as subprefeitura_bairro,
-       t2.area as area_bairro,
-       t2.perimetro as perimetro_bairro,
-       t2.geometry as geometry_bairro
+       t2.subprefeitura,
+       t2.geometry as geometry_bairro,
+       t1.categoria,
+       t1.id_tipo,
+       t1.tipo,
+       t1.id_subtipo,
+       t1.subtipo,
+       t1.status,
+       t1.situacao,
+       t1.tipo_situacao,
+       t1.latitude,
+       t1.longitude,
+       t1.geometry as geometry_chamado
     FROM `datario.administracao_servicos_publicos.chamado_1746` t1
     LEFT JOIN `datario.dados_mestres.bairro` t2
-    ON t1.id_bairro = t2.id_bairro
-    WHERE data_particao='{ref_date}'
+    ON t1.id_bairro = t2.id_bairro 
+    WHERE t1.data_particao = DATE_TRUNC(DATE '{ref_date}', MONTH)
+    AND DATE(t1.data_inicio) = '{ref_date}' 
     """
     df = bd.read_sql(query, billing_project_id=project_id)
 
@@ -42,13 +53,13 @@ def load_data_chamados_with_geolocation(
     if path_to_save:
         if path_to_save.is_dir():
             df.to_parquet(
-                f"{path_to_save}/dataset_chamado_1746_with_geoloc_{ref_date}.parquet.gzip",
+                f"{path_to_save}/dataset_daily_chamado1746_{ref_date}.parquet.gzip",
                 compression="gzip",
             )
         else:
             path_to_save.mkdir(parents=True)
             df.to_parquet(
-                f"{path_to_save}/dataset_chamado_1746_with_geoloc_{ref_date}.parquet.gzip",
+                f"{path_to_save}/dataset_chamado1746_{ref_date}.parquet.gzip",
                 compression="gzip",
             )
 
@@ -58,7 +69,7 @@ def load_data_chamados_with_geolocation(
 
 if __name__ == "__main__":
     PROJ_ID = "teste-cientista-dados-jr-rj"
-    REF_DATE = "2023-04-01"
-    load_data_chamados_with_geolocation(
+    REF_DATE = "2023-01-12"
+    load_daily_data_chamados(
         project_id=PROJ_ID, ref_date=REF_DATE, dir_to_save="../../datasets/raw"
     )
