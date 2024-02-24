@@ -69,7 +69,7 @@ def load_daily_data_chamados(
 
 if __name__ == "__main__":
     PROJ_ID = "teste-cientista-dados-jr-rj"
-    REF_DATE = "2023-01-12"
+    REF_DATE = "2023-04-01"
     load_daily_data_chamados(
         project_id=PROJ_ID, ref_date=REF_DATE, dir_to_save="../../datasets/raw"
     )
