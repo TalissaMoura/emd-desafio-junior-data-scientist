@@ -1,5 +1,4 @@
 name: ds-data-analysis-prefrj
-version: 1.0
 channels:
   - conda-forge
   - defaults
