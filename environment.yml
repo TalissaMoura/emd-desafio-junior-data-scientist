@@ -1,16 +1,20 @@
 name: ds-data-analysis-prefrj
+version: 1.0
 channels:
   - conda-forge
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
   - _openmp_mutex=5.1
+  - altair=5.2.0
+  - attrs=23.2.0
   - black=24.2.0
   - blas=1.0
+  - bottleneck=1.3.7
   - brotli=1.0.9
   - brotli-bin=1.0.9
   - bzip2=1.0.8
-  - ca-certificates=2023.12.12
+  - ca-certificates=2024.2.2
   - contourpy=1.2.0
   - cycler=0.11.0
   - cyrus-sasl=2.1.28
@@ -24,9 +28,14 @@ dependencies:
   - gst-plugins-base=1.14.1
   - gstreamer=1.14.1
   - icu=73.1
+  - importlib-metadata=7.0.1
+  - importlib_resources=6.1.1
   - intel-openmp=2023.1.0
   - isort=5.13.2
+  - jinja2=3.1.3
   - jpeg=9e
+  - jsonschema=4.21.1
+  - jsonschema-specifications=2023.12.1
   - kiwisolver=1.4.4
   - krb5=1.20.1
   - lcms2=2.12
@@ -56,6 +65,7 @@ dependencies:
   - libxkbcommon=1.0.1
   - libxml2=2.10.4
   - lz4-c=1.9.4
+  - markupsafe=2.1.3
   - matplotlib=3.8.0
   - matplotlib-base=3.8.0
   - mkl=2023.1.0
@@ -66,15 +76,18 @@ dependencies:
   - mypy_extensions=1.0.0
   - mysql=5.7.24
   - ncurses=6.4
+  - numexpr=2.8.7
   - numpy=1.26.3
   - numpy-base=1.26.3
   - openjpeg=2.4.0
   - openssl=3.0.13
   - packaging=23.1
+  - pandas=2.1.4
   - pathspec=0.10.3
   - pcre2=10.42
   - pillow=10.2.0
   - pip=23.3.1
+  - pkgutil-resolve-name=1.3.10
   - platformdirs=3.10.0
   - ply=3.11
   - pyparsing=3.0.9
@@ -82,9 +95,13 @@ dependencies:
   - pyqt5-sip=12.13.0
   - python=3.10.13
   - python-dateutil=2.8.2
+  - python-tzdata=2024.1
   - python_abi=3.10
+  - pytz=2024.1
   - qt-main=5.15.2
   - readline=8.2
+  - referencing=0.33.0
+  - rpds-py=0.10.6
   - setuptools=68.2.2
   - sip=6.7.12
   - six=1.16.0
@@ -92,12 +109,35 @@ dependencies:
   - tbb=2021.8.0
   - tk=8.6.12
   - tomli=2.0.1
+  - toolz=0.12.1
   - tornado=6.3.3
+  - typing-extensions=4.9.0
   - typing_extensions=4.9.0
   - tzdata=2023d
+  - vega_datasets=0.9.0
   - wheel=0.41.2
   - xz=5.4.5
+  - zipp=3.17.0
   - zlib=1.2.13
   - zstd=1.5.5
   - pip:
-      - -r requirements.txt
+      - blinker==1.7.0
+      - certifi==2024.2.2
+      - click==8.0.3
+      - colorama==0.4.6
+      - gitdb==4.0.11
+      - gitpython==3.1.42
+      - idna==3.6
+      - pyarrow==15.0.0
+      - pyasn1==0.5.1
+      - pydeck==0.8.1b0
+      - pyyaml==6.0.1
+      - rsa==4.9
+      - smmap==5.0.1
+      - sqlalchemy==2.0.27
+      - streamlit==1.31.1
+      - tenacity==8.2.3
+      - tokenize-rt==5.2.0
+      - urllib3==1.26.18
+      - validators==0.22.0
+      - watchdog==4.0.0
