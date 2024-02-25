@@ -3,6 +3,7 @@ from pathlib import Path
 import basedosdados as bd
 import pandas as pd
 
+import configparser
 
 def load_daily_data_chamados(
     project_id: str, dir_to_save: str = None, ref_date: str = "2024-02-01"
@@ -71,7 +72,9 @@ def load_daily_data_chamados(
 
 
 if __name__ == "__main__":
-    PROJ_ID = "teste-cientista-dados-jr-rj"
+    cfg = configparser.ConfigParser()
+    cfg.read_file(f=open("../../config.toml","r"),source="config")
+    PROJ_ID = cfg["ENV"]["project_id"]
     REF_DATE = "2023-04-01"
     load_daily_data_chamados(
         project_id=PROJ_ID, ref_date=REF_DATE, dir_to_save="../../datasets/raw"

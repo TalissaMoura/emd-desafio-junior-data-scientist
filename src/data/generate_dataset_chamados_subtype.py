@@ -3,6 +3,7 @@ from pathlib import Path
 import basedosdados as bd
 import pandas as pd
 
+import configparser
 
 def load_data_chamados_for_subtype(
     project_id: str,
@@ -60,7 +61,9 @@ def load_data_chamados_for_subtype(
 
 
 if __name__ == "__main__":
-    PROJ_ID = "teste-cientista-dados-jr-rj"
+    cfg = configparser.ConfigParser()
+    cfg.read_file(f=open("../../config.toml","r"),source="config")
+    PROJ_ID = cfg["ENV"]["project_id"]
     FIRST_REF_DATE = "2022-01-01"
     SEC_REF_DATE = "2023-12-01"
     load_data_chamados_for_subtype(

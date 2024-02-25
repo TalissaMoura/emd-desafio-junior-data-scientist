@@ -47,7 +47,10 @@ def load_last_seven_days_data_chamados(
 
 
 if __name__ == "__main__":
-    PROJ_ID = "teste-cientista-dados-jr-rj"
+    cfg = configparser.ConfigParser()
+    cfg.read_file(f=open("../../config.toml","r"),source="config")
+    
+    PROJ_ID = cfg["ENV"]["project_id"]
     REF_DATE = "2023-01-12"
     load_last_seven_days_data_chamados(
         project_id=PROJ_ID, ref_date=REF_DATE, dir_to_save="../../datasets/raw"
