@@ -28,18 +28,15 @@ def load_last_seven_days_data_chamados(
     for col in date_cols.columns:
         df[col] = pd.to_datetime(date_cols[col], format="%Y-%m-%d")
 
-
     if path_to_save:
         if path_to_save.is_dir():
             df.to_csv(
                 f"{path_to_save}/dataset_last_seven_days_chamado1746_{ref_date}.csv",
-                
             )
         else:
             path_to_save.mkdir(parents=True)
             df.to_csv(
                 f"{path_to_save}/dataset_last_seven_days_chamado1746_{ref_date}.csv",
-                
             )
 
     else:
@@ -48,8 +45,8 @@ def load_last_seven_days_data_chamados(
 
 if __name__ == "__main__":
     cfg = configparser.ConfigParser()
-    cfg.read_file(f=open("../../config.toml","r"),source="config")
-    
+    cfg.read_file(f=open("../../config.toml", "r"), source="config")
+
     PROJ_ID = cfg["ENV"]["project_id"]
     REF_DATE = "2023-01-12"
     load_last_seven_days_data_chamados(
