@@ -11,7 +11,7 @@ import streamlit as st
 from src.data import load_daily_data_chamados, load_last_seven_days_data_chamados
 from src.plot import bar_plot
 
-cfg = configparser.ConfigParser(strict=False)
+cfg = configparser.ConfigParser()
 cfg.read_file(f=open("./config.toml", "r"), source="config")
 
 PROJ_ID = cfg["ENV"]["project_id"]
@@ -19,8 +19,11 @@ PROJ_ID = cfg["ENV"]["project_id"]
 ## SET CONFIGS
 st.set_page_config(page_title=cfg["APP"]["page_title"], layout=cfg["APP"]["layout"])
 
+## SET TITLE
+st.title(cfg["APP"]["page_title"])
 
 ## LOAD DATA
+@st.cache_data
 def load_dataframes(ref_date: date):
     last_seven_days_df = load_last_seven_days_data_chamados(
         project_id=PROJ_ID, ref_date=ref_date
