@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Union
 
 import altair as alt
 import matplotlib.pyplot as plt
@@ -7,12 +7,12 @@ import pandas as pd
 
 def bar_plot(
     dataframe: pd.DataFrame,
-    x: Optional[str | alt.X],
-    y: Optional[str | alt.Y],
-    encode_kw: Optional[None | Dict[str, Any]] = None,
-    mark_bar_kw: Optional[Dict[str, Any] | None] = None,
-    config_xaxis: Optional[None | Dict[str, Any]] = None,
-    config_yaxis: Optional[None | Dict[str, Any]] = None,
+    x: Union[str,alt.X],
+    y: Union[str, alt.Y],
+    encode_kw: Union[None, Dict[str, Any]] = None,
+    mark_bar_kw: Union[Dict[str, Any],None] = None,
+    config_xaxis: Union[None, Dict[str, Any]] = None,
+    config_yaxis: Union[None, Dict[str, Any]] = None,
 ):
 
     if encode_kw:
