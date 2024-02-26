@@ -24,7 +24,7 @@ Os conjuntos de dados que serão utilizados neste desafio são:
 
 ### Como rodar esse projeto?
 
-1. A conda é utilzada para ser nosso package management, então, é necessário instala-lá.
+1. A conda é utilzada para ser nosso package management, então, é necessário [instala-lá](https://github.com/TalissaMoura/emd-desafio-junior-data-scientist).
 2. O arquivo `environment.yml` é que contém as depedências para rodar esse projeto. Execute o comando `conda create env -f environment.yml` para instalar as packages necessárias.
 3. Lembre-se de configurar seu projeto na sua conta GCP. O tutorial para isso está [aqui](https://docs.dados.rio/tutoriais/como-acessar-dados/).
 4. Para executar o dashboard execute o comando `streamlit run dashboard_app.py`.
