@@ -1,3 +1,4 @@
+import configparser
 from pathlib import Path
 
 import basedosdados as bd
