@@ -1,13 +1,14 @@
+import configparser
 from pathlib import Path
 
 import basedosdados as bd
 import pandas as pd
-import streamlit as st
 from google.oauth2 import service_account
 
 
 def load_data_chamados_for_subtype(
     project_id: str,
+    gcp_credentials: dict,
     id_subtype: str,
     dir_to_save: str = None,
     first_ref_date: str = "2022-01-01",
@@ -18,6 +19,7 @@ def load_data_chamados_for_subtype(
 
     Args:
         project_id (str): name of the project on your account in GCP.
+        gcp_credentials (dict): the dict of a service_account in GCP. See https://cloud.google.com/iam/docs/service-account-overview
         id_subtype (str): it's the id_subtipo of the specific occurrence.
         dir_to_save (str, optional):  Path of the directory to save the dataset. If dosen't exist, create one. Defaults to None.
         first_ref_date (str, optional): Initial date of reference. Defaults to "2022-01-01".
@@ -36,7 +38,7 @@ def load_data_chamados_for_subtype(
     WHERE data_particao BETWEEN "{first_ref_date}" AND "{sec_ref_date}"
     AND t1.id_subtipo = "{id_subtype}"
     """
-    df = pd.read_gbq(query=query, project_id=project_id,credentials=service_account.Credentials.from_service_account_info(st.secrets["GCP_CREDENTIALS"]),progress_bar_type="tqdm")
+    df = pd.read_gbq(query=query, project_id=project_id,credentials=service_account.Credentials.from_service_account_info(gcp_credentials),progress_bar_type="tqdm")
 
     # CONVERT DATE COLUMNS TO DATETIME
 
@@ -62,11 +64,14 @@ def load_data_chamados_for_subtype(
 
 
 if __name__ == "__main__":
-    PROJ_ID = st.secrets["ENV"]["project_id"]
+    cfg = configparser.ConfigParser()
+    cfg.read_file(open("../../secrets.toml","r"))
+    PROJ_ID = cfg["ENV"]["project_id"]
     FIRST_REF_DATE = "2022-01-01"
     SEC_REF_DATE = "2023-12-01"
     load_data_chamados_for_subtype(
         project_id=PROJ_ID,
+        gcp_credentials=cfg["GCP_CREDENTIALS"],
         id_subtype="5071",
         first_ref_date=FIRST_REF_DATE,
         sec_ref_date=SEC_REF_DATE,

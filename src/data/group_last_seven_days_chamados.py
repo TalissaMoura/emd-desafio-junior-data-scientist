@@ -1,3 +1,4 @@
+import configparser
 from pathlib import Path
 
 import basedosdados as bd
@@ -7,7 +8,7 @@ from google.oauth2 import service_account
 
 
 def load_last_seven_days_data_chamados(
-    project_id: str, dir_to_save: str = None, ref_date: str = "2024-02-01"
+    project_id: str, gcp_credentials:dict, dir_to_save: str = None, ref_date: str = "2024-02-01"
 ) -> pd.DataFrame:
     if dir_to_save:
         path_to_save = Path(dir_to_save)
@@ -22,7 +23,7 @@ def load_last_seven_days_data_chamados(
     GROUP BY 1
     ORDER BY 1 DESC;
     """
-    df = pd.read_gbq(query=query, project_id=project_id,credentials=service_account.Credentials.from_service_account_info(st.secrets["GCP_CREDENTIALS"]),progress_bar_type="tqdm")
+    df = pd.read_gbq(query=query, project_id=project_id,credentials=service_account.Credentials.from_service_account_info(gcp_credentials),progress_bar_type="tqdm_gui")
 
     # CONVERT DATE COLUMNS TO DATETIME
 
@@ -46,8 +47,10 @@ def load_last_seven_days_data_chamados(
 
 
 if __name__ == "__main__":
-    PROJ_ID = st.secrets["ENV"]["project_id"]
+    cfg = configparser.ConfigParser()
+    cfg.read_file(open("../../secrets.toml","r"))
+    PROJ_ID = cfg["ENV"]["project_id"]
     REF_DATE = "2023-01-12"
     load_last_seven_days_data_chamados(
-        project_id=PROJ_ID, ref_date=REF_DATE, dir_to_save="../../datasets/raw"
+        project_id=PROJ_ID,gcp_credentials=cfg["GCP_CREDENTIALS"], ref_date=REF_DATE, dir_to_save="../../datasets/raw"
     )
