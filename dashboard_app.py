@@ -1,4 +1,3 @@
-import configparser
 from datetime import date
 
 import altair as alt
@@ -7,20 +6,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
+import os
 
 from src.data import load_daily_data_chamados, load_last_seven_days_data_chamados
 from src.plot import bar_plot
 
-cfg = configparser.ConfigParser()
-cfg.read_file(f=open("./config.toml", "r"), source="config")
-
-PROJ_ID = cfg["ENV"]["project_id"]
+PROJ_ID = os.environ["project_id"]
 
 ## SET CONFIGS
-st.set_page_config(page_title=cfg["APP"]["page_title"], layout=cfg["APP"]["layout"])
+st.set_page_config(page_title=PROJ_ID, layout=os.environ["APP"]["layout"])
 
 ## SET TITLE
-st.title(cfg["APP"]["page_title"])
+st.title(os.environ["APP"]["page_title"])
 
 ## LOAD DATA
 @st.cache_data
