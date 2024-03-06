@@ -11,7 +11,7 @@ import os
 from src.data import load_daily_data_chamados, load_last_seven_days_data_chamados
 from src.plot import bar_plot
 
-PROJ_ID = os.environ["project_id"]
+PROJ_ID = os.environ["ENV"]["project_id"]
 
 ## SET CONFIGS
 st.set_page_config(page_title=PROJ_ID, layout=os.environ["APP"]["layout"])
