@@ -1,8 +1,8 @@
-import configparser
 from pathlib import Path
 
 import basedosdados as bd
 import pandas as pd
+import streamlit as st
 
 
 def load_data_chamados_for_subtype(
@@ -35,7 +35,7 @@ def load_data_chamados_for_subtype(
     WHERE data_particao BETWEEN "{first_ref_date}" AND "{sec_ref_date}"
     AND t1.id_subtipo = "{id_subtype}"
     """
-    df = bd.read_sql(query, billing_project_id=project_id)
+    df = pd.read_gbq(query=query, project_id=project_id,credentials=st.secrets["GCP_CREDENTIALS"],progress_bar_type="tqdm")
 
     # CONVERT DATE COLUMNS TO DATETIME
 
@@ -61,9 +61,7 @@ def load_data_chamados_for_subtype(
 
 
 if __name__ == "__main__":
-    cfg = configparser.ConfigParser()
-    cfg.read_file(f=open("../../config.toml", "r"), source="config")
-    PROJ_ID = cfg["ENV"]["project_id"]
+    PROJ_ID = st.secrets["ENV"]["project_id"]
     FIRST_REF_DATE = "2022-01-01"
     SEC_REF_DATE = "2023-12-01"
     load_data_chamados_for_subtype(

@@ -2,6 +2,7 @@ from pathlib import Path
 
 import basedosdados as bd
 import pandas as pd
+import streamlit as st 
 
 
 def load_last_seven_days_data_chamados(
@@ -20,7 +21,7 @@ def load_last_seven_days_data_chamados(
     GROUP BY 1
     ORDER BY 1 DESC;
     """
-    df = bd.read_sql(query, billing_project_id=project_id)
+    df = pd.read_gbq(query=query, project_id=project_id,credentials=st.secrets["GCP_CREDENTIALS"],progress_bar_type="tqdm")
 
     # CONVERT DATE COLUMNS TO DATETIME
 
@@ -44,10 +45,7 @@ def load_last_seven_days_data_chamados(
 
 
 if __name__ == "__main__":
-    cfg = configparser.ConfigParser()
-    cfg.read_file(f=open("../../config.toml", "r"), source="config")
-
-    PROJ_ID = cfg["ENV"]["project_id"]
+    PROJ_ID = st.secrets["ENV"]["project_id"]
     REF_DATE = "2023-01-12"
     load_last_seven_days_data_chamados(
         project_id=PROJ_ID, ref_date=REF_DATE, dir_to_save="../../datasets/raw"
