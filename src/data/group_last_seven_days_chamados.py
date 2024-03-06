@@ -3,7 +3,6 @@ from pathlib import Path
 
 import basedosdados as bd
 import pandas as pd
-import streamlit as st 
 from google.oauth2 import service_account
 
 
