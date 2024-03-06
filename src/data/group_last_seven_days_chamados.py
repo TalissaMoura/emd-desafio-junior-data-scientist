@@ -3,6 +3,7 @@ from pathlib import Path
 import basedosdados as bd
 import pandas as pd
 import streamlit as st 
+from google.oauth2 import service_account
 
 
 def load_last_seven_days_data_chamados(
@@ -21,7 +22,7 @@ def load_last_seven_days_data_chamados(
     GROUP BY 1
     ORDER BY 1 DESC;
     """
-    df = pd.read_gbq(query=query, project_id=project_id,credentials=st.secrets["GCP_CREDENTIALS"],progress_bar_type="tqdm")
+    df = pd.read_gbq(query=query, project_id=project_id,credentials=service_account.Credentials.from_service_account_info(st.secrets["GCP_CREDENTIALS"]),progress_bar_type="tqdm")
 
     # CONVERT DATE COLUMNS TO DATETIME
 
