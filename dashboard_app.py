@@ -22,9 +22,9 @@ st.title(st.secrets["APP"]["page_title"])
 @st.cache_data
 def load_dataframes(ref_date: date):
     last_seven_days_df = load_last_seven_days_data_chamados(
-        project_id=PROJ_ID, ref_date=ref_date
+        project_id=PROJ_ID,gcp_credentials=st.secrets["GCP_CREDENTIALS"], ref_date=ref_date
     )
-    daily_chamados_df = load_daily_data_chamados(project_id=PROJ_ID, ref_date=ref_date)
+    daily_chamados_df = load_daily_data_chamados(project_id=PROJ_ID,gcp_credentials=st.secrets["GCP_CREDENTIALS"],ref_date=ref_date)
     return last_seven_days_df, daily_chamados_df
 
 
