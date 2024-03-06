@@ -7,7 +7,10 @@ from google.oauth2 import service_account
 
 
 def load_daily_data_chamados(
-    project_id: str,gcp_credentials: dict, dir_to_save: str = None, ref_date: str = "2024-02-01"
+    project_id: str,
+    gcp_credentials: dict,
+    dir_to_save: str = None,
+    ref_date: str = "2024-02-01",
 ) -> pd.DataFrame:
     """
     Load the data from chamados_1746 table at a ref_date with additional geolocation information from bairros table.
@@ -48,7 +51,14 @@ def load_daily_data_chamados(
     WHERE t1.data_particao = DATE_TRUNC(DATE '{ref_date}', MONTH)
     AND DATE(t1.data_inicio) = '{ref_date}' 
     """
-    df = pd.read_gbq(query=query, project_id=project_id,credentials=service_account.Credentials.from_service_account_info(gcp_credentials),progress_bar_type="tqdm")
+    df = pd.read_gbq(
+        query=query,
+        project_id=project_id,
+        credentials=service_account.Credentials.from_service_account_info(
+            gcp_credentials
+        ),
+        progress_bar_type="tqdm",
+    )
     # CONVERT DATE COLUMNS TO DATETIME
 
     date_cols = df.select_dtypes(include="dbdate")
@@ -74,9 +84,12 @@ def load_daily_data_chamados(
 
 if __name__ == "__main__":
     cfg = configparser.ConfigParser()
-    cfg.read_file(open("../../secrets.toml","r"))
+    cfg.read_file(open("../../secrets.toml", "r"))
     PROJ_ID = cfg["ENV"]["project_id"]
     REF_DATE = "2023-04-01"
     load_daily_data_chamados(
-        project_id=PROJ_ID,gcp_credentials=cfg["GCP_CREDENTIALS"], ref_date=REF_DATE, dir_to_save="../../datasets/raw"
+        project_id=PROJ_ID,
+        gcp_credentials=cfg["GCP_CREDENTIALS"],
+        ref_date=REF_DATE,
+        dir_to_save="../../datasets/raw",
     )
